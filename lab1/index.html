@@ -3,65 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Marksheet</title>
+    <title>Web Technologies Lab</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Student Marksheet Table</h1>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>Roll No</th>
-                <th>Name</th>
-                <th>Subject 1</th>
-                <th>Subject 2</th>
-                <th>Subject 3</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>101</td>
-                <td>John Smith</td>
-                <td>85</td>
-                <td>92</td>
-                <td>78</td>
-                <td>255</td>
-            </tr>
-            <tr>
-                <td>102</td>
-                <td>Emma Johnson</td>
-                <td>90</td>
-                <td>88</td>
-                <td>95</td>
-                <td>273</td>
-            </tr>
-            <tr>
-                <td>103</td>
-                <td>Michael Brown</td>
-                <td>76</td>
-                <td>82</td>
-                <td>80</td>
-                <td>238</td>
-            </tr>
-            <tr>
-                <td>104</td>
-                <td>Sophia Davis</td>
-                <td>95</td>
-                <td>91</td>
-                <td>89</td>
-                <td>275</td>
-            </tr>
-            <tr>
-                <td>105</td>
-                <td>William Wilson</td>
-                <td>82</td>
-                <td>79</td>
-                <td>86</td>
-                <td>247</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="main-header">
+        <h1>Web Technologies Lab</h1>
+        <p>HTML, CSS & JavaScript Exercises</p>
+    </div>
+
+    <div class="container">
+        <!-- Exercise 1: HTML Table -->
+        <section class="exercise" id="exercise1">
+            <div class="exercise-header">
+                <h2>Exercise 1</h2>
+            </div>
+            <div class="exercise-content">
+                <h3>Student Marksheet Table</h3>
+                <table class="marksheet-table">
+                    <thead>
+                        <tr>
+                            <th>Roll No</th>
+                            <th>Name</th>
+                            <th>Subject 1</th>
+                            <th>Subject 2</th>
+                            <th>Subject 3</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>101</td>
+                            <td>John Smith</td>
+                            <td>85</td>
+                            <td>92</td>
+                            <td>78</td>
+                            <td>255</td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>Emma Johnson</td>
+                            <td>90</td>
+                            <td>88</td>
+                            <td>95</td>
+                            <td>273</td>
+                        </tr>
+                        <tr>
+                            <td>103</td>
+                            <td>Michael Brown</td>
+                            <td>76</td>
+                            <td>82</td>
+                            <td>80</td>
+                            <td>238</td>
+                        </tr>
+                        <tr>
+                            <td>104</td>
+                            <td>Sophia Davis</td>
+                            <td>95</td>
+                            <td>91</td>
+                            <td>89</td>
+                            <td>275</td>
+                        </tr>
+                        <tr>
+                            <td>105</td>
+                            <td>William Wilson</td>
+                            <td>82</td>
+                            <td>79</td>
+                            <td>86</td>
+                            <td>247</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Exercise 2: HTML Form -->
+        <section class="exercise" id="exercise2">
+            <div class="exercise-header">
+                <h2>Exercise 2</h2>
+            </div>
+            <div class="exercise-content">
+                <h3>Basic Contact Form</h3>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Exercise 3: HTML5 Form Elements -->
+        <section class="exercise" id="exercise3">
+            <div class="exercise-header">
+                <h2>Exercise 3</h2>
+            </div>
+            <div class="exercise-content">
+                <h3>Advanced Registration Form</h3>
+                <form class="registration-form" id="registrationForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regEmail">Email:</label>
+                        <input type="email" id="regEmail" name="regEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth:</label>
+                        <input type="date" id="dob" name="dob" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profilePic">Choose Profile Picture:</label>
+                        <input type="file" id="profilePic" name="profilePic" accept="image/*">
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">I accept the Terms & Conditions</label>
+                    </div>
+                    <button type="submit" class="submit-btn">Register</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Exercise 4: CSS Product Card -->
+        <section class="exercise" id="exercise4">
+            <div class="exercise-header">
+                <h2>Exercise 4</h2>
+            </div>
+            <div class="exercise-content">
+                <h3>Product Card with CSS Styling</h3>
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/300x200/4A90E2/ffffff?text=Product+Image" alt="Product" class="product-image">
+                    <div class="product-info">
+                        <h4 class="product-title">Premium Wireless Headphones</h4>
+                        <p class="product-description">Experience crystal-clear sound quality with our premium wireless headphones. Features noise cancellation and 30-hour battery life.</p>
+                        <p class="product-price">$199.99</p>
+                        <button class="buy-btn">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exercise 5: Personal Portfolio -->
+        <section class="exercise" id="exercise5">
+            <div class="exercise-header">
+                <h2>Exercise 5</h2>
+            </div>
+            <div class="exercise-content portfolio">
+                <header class="portfolio-header">
+                    <h3>Joseph Remingston</h3>
+                    <p class="tagline">Backend and GenAI Engineer</p>
+                    <p class="location">Bengaluru, Karnataka</p>
+                </header>
+
+                <section class="portfolio-section">
+                    <h4>Executive Summary</h4>
+                    <p>Backend and GenAI Engineer with a strong foundation in data structures, algorithms, and software development. Proficient in Python, Java, JavaScript, Node.js, Express.js, and experienced in building microservices and REST APIs, RAG Pipelines, AI Systems. Successfully developed serverless platforms and cloud deployments using AWS. Eager to leverage technical expertise to deliver scalable backend and AI solutions.</p>
+                </section>
+
+                <section class="portfolio-section">
+                    <h4>Technical Skills</h4>
+                    <div class="skills-grid">
+                        <div>
+                            <h5>Languages</h5>
+                            <ul class="skills-list">
+                                <li>Python</li>
+                                <li>Java</li>
+                                <li>C / C++</li>
+                                <li>JavaScript</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5>Backend Technologies</h5>
+                            <ul class="skills-list">
+                                <li>Node.js</li>
+                                <li>Express.js</li>
+                                <li>Docker</li>
+                                <li>MongoDB & SQL</li>
+                                <li>REST APIs</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5>AI Technologies</h5>
+                            <ul class="skills-list">
+                                <li>Vector Databases</li>
+                                <li>RAG Pipelines</li>
+                                <li>Embeddings</li>
+                                <li>LangChain</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5>Cloud & Tools</h5>
+                            <ul class="skills-list">
+                                <li>AWS (S3, EC2, Lambda, RDS)</li>
+                                <li>Git & Postman</li>
+                                <li>Agile Collaboration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="portfolio-section">
+                    <h4>Projects</h4>
+                    <div class="projects">
+                        <div class="project-item">
+                            <h5>VisionAI - AI Based Media Analysis</h5>
+                            <p class="project-tech">NodeJs, AWS, MongoDB, ExpressJs | June 2025</p>
+                            <ul>
+                                <li>Built serverless image processing pipeline using Sharp, improving load times</li>
+                                <li>Integrated AWS Rekognition for automated object detection</li>
+                                <li>Deployed serverless architecture using AWS Lambda achieving 99.9% uptime</li>
+                                <li>Developed RESTful APIs with Express.js, decreasing API latency</li>
+                            </ul>
+                        </div>
+                        <div class="project-item">
+                            <h5>DocuQuery - RAG based PDF Insights</h5>
+                            <p class="project-tech">NodeJs, RAG, MongoDB, LangChain | June 2025</p>
+                            <ul>
+                                <li>Integrated Gemini API for LLM-based query processing</li>
+                                <li>Designed RAG-based PDF retrieval system with semantic search</li>
+                                <li>Developed scalable backend with ChromaDB embeddings, improving query throughput by 40%</li>
+                                <li>Optimized LLM response pipeline, reducing redundant API calls by 35%</li>
+                            </ul>
+                        </div>
+                        <div class="project-item">
+                            <h5>GreenMind AI - GenAI based Farmer Assistant</h5>
+                            <p class="project-tech">Nodejs, LangChain, ChromaDB, RAG Pipelines | Sept 2025</p>
+                            <ul>
+                                <li>Architected domain-adapted GenAI chatbot with farming-specific knowledge base</li>
+                                <li>Implemented RAG pipeline using LangChain, ChromaDB, and Gemini embeddings</li>
+                                <li>Engineered efficient text chunking and semantic search mechanisms</li>
+                                <li>Deployed end-to-end system on serverless AWS Lambda</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="portfolio-section">
+                    <h4>Education</h4>
+                    <div class="education">
+                        <h5>VIT-AP University</h5>
+                        <p>BTech in Computer Science with Specialization in AI and Machine Learning</p>
+                        <p>Amaravati, Andhra Pradesh | 2023 - 2027</p>
+                    </div>
+                </section>
+
+                <section class="portfolio-section">
+                    <h4>Certifications & Achievements</h4>
+                    <ul class="skills-list">
+                        <li>Leetcode 1461 (max) rated</li>
+                        <li>CodeChef 1128 (max) rated</li>
+                        <li>The Complete Web Development Bootcamp 2023 - Udemy</li>
+                        <li>Machine Learning Specialization - Stanford Online (Coursera)</li>
+                        <li>BlackBucks Certified DevOps Engineer</li>
+                    </ul>
+                </section>
+
+                <footer class="portfolio-footer">
+                    <p><strong>Contact:</strong> ljremi@gmail.com | +919902313758</p>
+                    <p><strong>LinkedIn:</strong> linkedin.com/in/joseph-remingston | <strong>GitHub:</strong> github.com/JosephRemingston</p>
+                </footer>
+            </div>
+        </section>
+    </div>
+
+    <script src="index.js"></script>
 </body>
 </html>
