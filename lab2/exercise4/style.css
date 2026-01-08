@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.container {
+    margin: 20px 0;
+}
+
+form input {
+    display: block;
+    padding: 8px;
+    margin: 10px 0;
+}
+
+button {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+#message {
+    padding: 10px;
+    margin: 10px 0;
+    display: none;
+}
+
+.success {
+    color: green;
+}
+
+.error {
+    color: red;
+}
+
+table {
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+}
