@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Registration System</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 20px; }
+        .container { background: white; padding: 20px; max-width: 500px; margin: 0 auto; border: 1px solid #ddd; }
+        h1 { text-align: center; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        .required { color: red; }
+        input, select, textarea { width: 100%; padding: 8px; border: 1px solid #ddd; }
+        input.valid { border-color: green; }
+        input.invalid, select.invalid, textarea.invalid { border-color: red; }
+        .error-message { color: red; font-size: 12px; min-height: 15px; }
+        .hint { color: blue; font-size: 12px; }
+        .role-info { margin-top: 10px; padding: 10px; background: #f5f5f5; border-left: 3px solid #333; display: none; font-size: 13px; }
+        .role-info.student, .role-info.teacher, .role-info.admin { display: block; }
+        .strength-bar { height: 5px; background: #ddd; margin-top: 5px; }
+        .strength-fill { height: 100%; width: 0%; }
+        .strength-fill.weak { width: 33%; background: red; }
+        .strength-fill.medium { width: 66%; background: orange; }
+        .strength-fill.strong { width: 100%; background: green; }
+        .strength-text { font-size: 12px; }
+        .password-requirements { list-style: none; margin-top: 5px; padding: 5px; background: #f5f5f5; font-size: 12px; }
+        .password-requirements li { margin: 2px 0; }
+        .password-requirements li.met { color: green; }
+        button { width: 100%; padding: 10px; background: #333; color: white; border: none; cursor: pointer; margin-top: 10px; }
+        button:disabled { background: #999; }
+        .success-message { margin-top: 15px; padding: 10px; background: #d4edda; color: green; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Registration</h1>
+        <p class="subtitle">Registration requirements adapt based on your selected role</p>
+        
+        <form id="registrationForm" novalidate>
+            <!-- Name Field -->
+            <div class="form-group">
+                <label for="name">Full Name <span class="required">*</span></label>
+                <input type="text" id="name" name="name" required>
+                <span class="error-message" id="name-error"></span>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required>
+                <span class="error-message" id="email-error"></span>
+                <span class="hint" id="email-hint"></span>
+            </div>
+
+            <!-- Role Selection -->
+            <div class="form-group">
+                <label for="role">Role <span class="required">*</span></label>
+                <select id="role" name="role" required>
+                    <option value="">-- Select a Role --</option>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <span class="error-message" id="role-error"></span>
+                <div class="role-info" id="role-info"></div>
+            </div>
+
+            <!-- Age Field -->
+            <div class="form-group" id="age-group">
+                <label for="age">Age <span class="required">*</span></label>
+                <input type="number" id="age" name="age" min="1" max="120" required>
+                <span class="error-message" id="age-error"></span>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+                <label for="password">Password <span class="required">*</span></label>
+                <input type="password" id="password" name="password" required>
+                <span class="error-message" id="password-error"></span>
+                <div class="password-strength" id="password-strength">
+                    <div class="strength-bar">
+                        <div class="strength-fill" id="strength-fill"></div>
+                    </div>
+                    <span class="strength-text" id="strength-text"></span>
+                </div>
+                <ul class="password-requirements" id="password-requirements">
+                    <li id="req-length">At least 8 characters</li>
+                    <li id="req-uppercase">At least one uppercase letter</li>
+                    <li id="req-lowercase">At least one lowercase letter</li>
+                    <li id="req-number">At least one number</li>
+                    <li id="req-special" style="display: none;">At least one special character</li>
+                </ul>
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <span class="error-message" id="confirmPassword-error"></span>
+            </div>
+
+            <!-- Skills Field -->
+            <div class="form-group" id="skills-group">
+                <label for="skills">Skills/Specialization <span class="required">*</span></label>
+                <textarea id="skills" name="skills" rows="3" placeholder="Enter your skills or areas of expertise" required></textarea>
+                <span class="error-message" id="skills-error"></span>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submitBtn" disabled>Register</button>
+            
+            <div class="success-message" id="success-message" style="display: none;">
+                ✓ Registration successful! Welcome aboard!
+            </div>
+        </form>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
