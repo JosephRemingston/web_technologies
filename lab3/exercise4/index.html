@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time User Activity Monitor</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 20px; margin: 0; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { text-align: center; margin-bottom: 10px; color: #333; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 20px; font-size: 14px; }
+        
+        .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        
+        /* Interactive Area */
+        .interactive-section { background: white; padding: 20px; border: 1px solid #ddd; }
+        .interactive-section h2 { margin-bottom: 15px; color: #333; }
+        .test-area { background: #f9f9f9; padding: 20px; border: 2px dashed #ccc; min-height: 300px; }
+        .test-item { background: white; padding: 15px; margin: 10px 0; border: 1px solid #ddd; cursor: pointer; }
+        .test-item:hover { background: #e3f2fd; }
+        .test-input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; }
+        .test-button { padding: 10px 20px; margin: 10px 5px; background: #3498db; color: white; border: none; cursor: pointer; }
+        .test-button:hover { background: #2980b9; }
+        
+        /* Activity Monitor */
+        .monitor-section { background: white; padding: 20px; border: 1px solid #ddd; }
+        .monitor-section h2 { margin-bottom: 15px; color: #333; }
+        .stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
+        .stat-card { background: #e8f4f8; padding: 10px; text-align: center; border-left: 3px solid #3498db; }
+        .stat-number { font-size: 24px; font-weight: bold; color: #333; }
+        .stat-label { font-size: 12px; color: #666; }
+        
+        .warning-area { background: #fff3cd; border: 1px solid #ffc107; padding: 10px; margin-bottom: 15px; display: none; }
+        .warning-area.show { display: block; }
+        .warning-area.danger { background: #f8d7da; border-color: #dc3545; }
+        
+        .controls { margin-bottom: 15px; display: flex; gap: 10px; }
+        .control-btn { padding: 8px 15px; border: none; cursor: pointer; color: white; font-size: 14px; }
+        .reset-btn { background: #e74c3c; }
+        .reset-btn:hover { background: #c0392b; }
+        .export-btn { background: #27ae60; }
+        .export-btn:hover { background: #229954; }
+        .clear-btn { background: #95a5a6; }
+        .clear-btn:hover { background: #7f8c8d; }
+        
+        .log-container { background: #f9f9f9; border: 1px solid #ddd; max-height: 400px; overflow-y: auto; }
+        .log-entry { padding: 8px; border-bottom: 1px solid #eee; font-size: 13px; font-family: monospace; }
+        .log-entry:hover { background: #f0f0f0; }
+        .log-entry.click { border-left: 3px solid #3498db; }
+        .log-entry.keypress { border-left: 3px solid #9b59b6; }
+        .log-entry.focus { border-left: 3px solid #f39c12; }
+        .log-entry.blur { border-left: 3px solid #95a5a6; }
+        .log-time { color: #666; font-weight: bold; }
+        .log-type { display: inline-block; padding: 2px 6px; margin: 0 5px; font-size: 11px; font-weight: bold; }
+        .log-type.click { background: #3498db; color: white; }
+        .log-type.keypress { background: #9b59b6; color: white; }
+        .log-type.focus { background: #f39c12; color: white; }
+        .log-type.blur { background: #95a5a6; color: white; }
+        .log-details { color: #333; }
+        .log-empty { text-align: center; padding: 40px; color: #999; }
+        
+        .phase-indicator { font-size: 11px; color: #666; font-style: italic; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Real-Time User Activity Monitor</h1>
+        <p class="subtitle">Track clicks, keypresses, and focus events with bubbling & capturing phases</p>
+        
+        <div class="main-layout">
+            <!-- Interactive Test Area -->
+            <div class="interactive-section">
+                <h2>Interactive Test Area</h2>
+                <div class="test-area" id="testArea">
+                    <p style="margin-bottom: 15px; color: #666;">Interact with elements below to generate activity logs:</p>
+                    
+                    <div class="test-item" id="item1">
+                        <strong>📦 Clickable Item 1</strong>
+                        <p>Click me to log activity</p>
+                    </div>
+                    
+                    <div class="test-item" id="item2">
+                        <strong>📦 Clickable Item 2</strong>
+                        <p>Click me multiple times to trigger warnings</p>
+                    </div>
+                    
+                    <input type="text" class="test-input" id="input1" placeholder="Type here to log keypresses..." />
+                    
+                    <input type="text" class="test-input" id="input2" placeholder="Focus/blur events are tracked..." />
+                    
+                    <button class="test-button" id="btn1">Test Button 1</button>
+                    <button class="test-button" id="btn2">Test Button 2</button>
+                    <button class="test-button" id="btn3">Test Button 3</button>
+                </div>
+            </div>
+            
+            <!-- Activity Monitor -->
+            <div class="monitor-section">
+                <h2>Activity Monitor</h2>
+                
+                <!-- Stats -->
+                <div class="stats-bar">
+                    <div class="stat-card">
+                        <div class="stat-number" id="clickCount">0</div>
+                        <div class="stat-label">Clicks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="keypressCount">0</div>
+                        <div class="stat-label">Keypresses</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="focusCount">0</div>
+                        <div class="stat-label">Focus Events</div>
+                    </div>
+                </div>
+                
+                <!-- Warning Area -->
+                <div class="warning-area" id="warningArea"></div>
+                
+                <!-- Controls -->
+                <div class="controls">
+                    <button class="control-btn reset-btn" onclick="resetLog()">🔄 Reset</button>
+                    <button class="control-btn export-btn" onclick="exportLog()">📥 Export</button>
+                    <button class="control-btn clear-btn" onclick="clearWarning()">✕ Clear Warning</button>
+                </div>
+                
+                <!-- Activity Log -->
+                <div class="log-container" id="logContainer">
+                    <div class="log-empty">No activity logged yet. Interact with elements to start tracking.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="index.js"></script>
+</body>
+</html>
