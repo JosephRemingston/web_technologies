@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Record System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 Student Record System</h1>
+            <p class="subtitle">Manage student records with JSON & Fetch API</p>
+        </header>
+        
+        <!-- Alert/Notification Area -->
+        <div id="alertBox" class="alert-box"></div>
+        
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card total">
+                <div class="stat-icon">👥</div>
+                <div class="stat-content">
+                    <div class="stat-value" id="totalStudents">0</div>
+                    <div class="stat-label">Total Students</div>
+                </div>
+            </div>
+            <div class="stat-card average">
+                <div class="stat-icon">📊</div>
+                <div class="stat-content">
+                    <div class="stat-value" id="averageMarks">0</div>
+                    <div class="stat-label">Average Marks</div>
+                </div>
+            </div>
+            <div class="stat-card excellent">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-content">
+                    <div class="stat-value" id="excellentStudents">0</div>
+                    <div class="stat-label">Excellent (90+)</div>
+                </div>
+            </div>
+            <div class="stat-card courses">
+                <div class="stat-icon">📚</div>
+                <div class="stat-content">
+                    <div class="stat-value" id="totalCourses">0</div>
+                    <div class="stat-label">Courses</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Student Form -->
+        <div class="form-card">
+            <h2 id="formTitle">Add New Student</h2>
+            <form id="studentForm">
+                <input type="hidden" id="studentId">
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="studentName">
+                            <span class="required">*</span> Student Name
+                        </label>
+                        <input 
+                            type="text" 
+                            id="studentName" 
+                            placeholder="Enter full name"
+                            required
+                            minlength="2"
+                        >
+                        <span class="form-hint">Minimum 2 characters</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="studentCourse">
+                            <span class="required">*</span> Course
+                        </label>
+                        <select id="studentCourse" required>
+                            <option value="">Select Course</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Information Technology">Information Technology</option>
+                            <option value="Software Engineering">Software Engineering</option>
+                            <option value="Data Science">Data Science</option>
+                            <option value="Cybersecurity">Cybersecurity</option>
+                            <option value="Artificial Intelligence">Artificial Intelligence</option>
+                            <option value="Web Development">Web Development</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="studentMarks">
+                            <span class="required">*</span> Marks
+                        </label>
+                        <input 
+                            type="number" 
+                            id="studentMarks" 
+                            placeholder="0-100"
+                            required
+                            min="0"
+                            max="100"
+                            step="1"
+                        >
+                        <span class="form-hint">Enter marks between 0-100</span>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <span class="icon">➕</span> Add Student
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="resetBtn">
+                        <span class="icon">🔄</span> Reset
+                    </button>
+                    <button type="button" class="btn btn-outline" id="cancelBtn" style="display: none;">
+                        <span class="icon">✕</span> Cancel Edit
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Student Table Section -->
+        <div class="table-card">
+            <div class="table-header">
+                <h2>Student Records</h2>
+                <div class="table-actions">
+                    <div class="search-box">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="🔍 Search by name or course..."
+                            class="search-input"
+                        >
+                    </div>
+                    <select id="courseFilter" class="filter-select">
+                        <option value="">All Courses</option>
+                    </select>
+                    <select id="gradeFilter" class="filter-select">
+                        <option value="">All Grades</option>
+                        <option value="excellent">Excellent (90-100)</option>
+                        <option value="good">Good (75-89)</option>
+                        <option value="average">Average (60-74)</option>
+                        <option value="below-average">Below Average (&lt;60)</option>
+                    </select>
+                    <button class="btn btn-refresh" id="refreshBtn">
+                        <span class="icon">🔄</span> Reload
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <div class="loader"></div>
+                <p>Loading student records...</p>
+            </div>
+            
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-icon">📚</div>
+                <h3>No Students Found</h3>
+                <p>Add your first student to get started!</p>
+            </div>
+            
+            <!-- Student Table -->
+            <div id="tableWrapper" style="display: none;">
+                <div class="table-responsive">
+                    <table id="studentTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Course</th>
+                                <th>Marks</th>
+                                <th>Grade</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody">
+                            <!-- Student rows will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="index.js"></script>
+</body>
+</html>

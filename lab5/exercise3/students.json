@@ -1,0 +1,64 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "course": "Computer Science",
+      "marks": 92
+    },
+    {
+      "id": 2,
+      "name": "Bob Smith",
+      "course": "Information Technology",
+      "marks": 87
+    },
+    {
+      "id": 3,
+      "name": "Charlie Brown",
+      "course": "Software Engineering",
+      "marks": 78
+    },
+    {
+      "id": 4,
+      "name": "Diana Prince",
+      "course": "Data Science",
+      "marks": 95
+    },
+    {
+      "id": 5,
+      "name": "Ethan Hunt",
+      "course": "Cybersecurity",
+      "marks": 88
+    },
+    {
+      "id": 6,
+      "name": "Fiona Garcia",
+      "course": "Computer Science",
+      "marks": 91
+    },
+    {
+      "id": 7,
+      "name": "George Miller",
+      "course": "Information Technology",
+      "marks": 73
+    },
+    {
+      "id": 8,
+      "name": "Hannah Lee",
+      "course": "Data Science",
+      "marks": 96
+    },
+    {
+      "id": 9,
+      "name": "Ian Rodriguez",
+      "course": "Software Engineering",
+      "marks": 82
+    },
+    {
+      "id": 10,
+      "name": "Jessica Martinez",
+      "course": "Cybersecurity",
+      "marks": 89
+    }
+  ]
+}
