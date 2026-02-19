@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Inventory System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📦 Product Inventory System</h1>
+            <p class="subtitle">Manage your inventory with real-time updates</p>
+        </header>
+        
+        <!-- Alert Notification -->
+        <div id="alertNotification" class="alert-notification"></div>
+        
+        <!-- Dashboard Statistics -->
+        <div class="dashboard">
+            <div class="stat-card total-products">
+                <div class="stat-icon">📦</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalProducts">0</div>
+                    <div class="stat-label">Total Products</div>
+                </div>
+            </div>
+            
+            <div class="stat-card total-value">
+                <div class="stat-icon">💰</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalValue">$0.00</div>
+                    <div class="stat-label">Total Inventory Value</div>
+                </div>
+            </div>
+            
+            <div class="stat-card low-stock">
+                <div class="stat-icon">⚠️</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="lowStockCount">0</div>
+                    <div class="stat-label">Low Stock Items</div>
+                </div>
+            </div>
+            
+            <div class="stat-card out-stock">
+                <div class="stat-icon">❌</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="outOfStockCount">0</div>
+                    <div class="stat-label">Out of Stock</div>
+                </div>
+            </div>
+            
+            <div class="stat-card categories">
+                <div class="stat-icon">📂</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalCategories">0</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Product Form -->
+        <div class="form-section">
+            <h2 id="formTitle">Add New Product</h2>
+            <form id="productForm">
+                <input type="hidden" id="productId">
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="productName">
+                            <span class="required">*</span> Product Name
+                        </label>
+                        <input 
+                            type="text" 
+                            id="productName" 
+                            placeholder="Enter product name"
+                            required
+                            minlength="3"
+                        >
+                        <span class="hint">Minimum 3 characters</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productCategory">
+                            <span class="required">*</span> Category
+                        </label>
+                        <select id="productCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="Stationery">Stationery</option>
+                            <option value="Accessories">Accessories</option>
+                            <option value="Office Supplies">Office Supplies</option>
+                            <option value="Books">Books</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productPrice">
+                            <span class="required">*</span> Price ($)
+                        </label>
+                        <input 
+                            type="number" 
+                            id="productPrice" 
+                            placeholder="0.00"
+                            required
+                            min="0.01"
+                            step="0.01"
+                        >
+                        <span class="hint">Must be greater than 0</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productStock">
+                            <span class="required">*</span> Stock Quantity
+                        </label>
+                        <input 
+                            type="number" 
+                            id="productStock" 
+                            placeholder="0"
+                            required
+                            min="0"
+                            step="1"
+                        >
+                        <span class="hint">Available units</span>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <span class="icon">➕</span> Add Product
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="clearBtn">
+                        <span class="icon">🔄</span> Clear Form
+                    </button>
+                    <button type="button" class="btn btn-outline" id="cancelEditBtn" style="display: none;">
+                        <span class="icon">✕</span> Cancel Edit
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Inventory Table Section -->
+        <div class="inventory-section">
+            <div class="section-header">
+                <h2>Product Inventory</h2>
+                <div class="toolbar">
+                    <div class="search-container">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="🔍 Search by name..."
+                            class="search-input"
+                        >
+                    </div>
+                    
+                    <select id="categoryFilter" class="filter-dropdown">
+                        <option value="">All Categories</option>
+                    </select>
+                    
+                    <select id="stockFilter" class="filter-dropdown">
+                        <option value="">All Stock Levels</option>
+                        <option value="in-stock">In Stock</option>
+                        <option value="low-stock">Low Stock (≤5)</option>
+                        <option value="out-of-stock">Out of Stock</option>
+                    </select>
+                    
+                    <button class="btn btn-refresh" id="reloadBtn">
+                        <span class="icon">🔄</span> Reload
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Loading Indicator -->
+            <div id="loadingIndicator" class="loading-container">
+                <div class="spinner"></div>
+                <p>Loading inventory data...</p>
+            </div>
+            
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-container" style="display: none;">
+                <div class="empty-icon">📦</div>
+                <h3>No Products Found</h3>
+                <p>Start by adding your first product to the inventory!</p>
+            </div>
+            
+            <!-- Inventory Table -->
+            <div id="tableContainer" style="display: none;">
+                <div class="table-wrapper">
+                    <table id="inventoryTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Value</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryTableBody">
+                            <!-- Product rows will be inserted here -->
+                        </tbody>
+                        <tfoot>
+                            <tr class="totals-row">
+                                <td colspan="5"><strong>Total Inventory Value:</strong></td>
+                                <td colspan="3"><strong id="footerTotalValue">$0.00</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="index.js"></script>
+</body>
+</html>

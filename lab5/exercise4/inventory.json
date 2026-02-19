@@ -1,0 +1,109 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Laptop Dell XPS 15",
+      "category": "Electronics",
+      "price": 1299.99,
+      "stock": 15
+    },
+    {
+      "id": 2,
+      "name": "Wireless Mouse",
+      "category": "Electronics",
+      "price": 29.99,
+      "stock": 45
+    },
+    {
+      "id": 3,
+      "name": "Office Chair Ergonomic",
+      "category": "Furniture",
+      "price": 249.99,
+      "stock": 8
+    },
+    {
+      "id": 4,
+      "name": "Standing Desk",
+      "category": "Furniture",
+      "price": 399.99,
+      "stock": 3
+    },
+    {
+      "id": 5,
+      "name": "Notebook Set (5 pack)",
+      "category": "Stationery",
+      "price": 12.99,
+      "stock": 120
+    },
+    {
+      "id": 6,
+      "name": "Blue Ink Pens (Box of 50)",
+      "category": "Stationery",
+      "price": 8.99,
+      "stock": 75
+    },
+    {
+      "id": 7,
+      "name": "USB-C Hub 7-in-1",
+      "category": "Electronics",
+      "price": 49.99,
+      "stock": 22
+    },
+    {
+      "id": 8,
+      "name": "Mechanical Keyboard RGB",
+      "category": "Electronics",
+      "price": 89.99,
+      "stock": 5
+    },
+    {
+      "id": 9,
+      "name": "Bookshelf Oak Wood",
+      "category": "Furniture",
+      "price": 179.99,
+      "stock": 6
+    },
+    {
+      "id": 10,
+      "name": "Desk Lamp LED",
+      "category": "Furniture",
+      "price": 34.99,
+      "stock": 18
+    },
+    {
+      "id": 11,
+      "name": "Printer Paper A4 (Ream)",
+      "category": "Stationery",
+      "price": 7.99,
+      "stock": 200
+    },
+    {
+      "id": 12,
+      "name": "Webcam 1080p HD",
+      "category": "Electronics",
+      "price": 79.99,
+      "stock": 2
+    },
+    {
+      "id": 13,
+      "name": "Monitor 27 inch 4K",
+      "category": "Electronics",
+      "price": 449.99,
+      "stock": 0
+    },
+    {
+      "id": 14,
+      "name": "Filing Cabinet 3-Drawer",
+      "category": "Furniture",
+      "price": 159.99,
+      "stock": 4
+    },
+    {
+      "id": 15,
+      "name": "Sticky Notes Multicolor",
+      "category": "Stationery",
+      "price": 5.99,
+      "stock": 150
+    }
+  ]
+}
