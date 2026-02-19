@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System - AJAX CRUD</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Student Management System</h1>
+            <p>AJAX CRUD Operations - No Page Reload</p>
+        </header>
+
+        <!-- Alert/Message Box -->
+        <div id="messageBox" class="message-box hidden">
+            <div class="message-content">
+                <span id="messageIcon"></span>
+                <span id="messageText"></span>
+            </div>
+            <button class="close-btn" onclick="closeMessage()">×</button>
+        </div>
+
+        <!-- Student Form -->
+        <div class="form-section">
+            <h2 id="formTitle">
+                <span id="formMode">Create</span> Student Record
+            </h2>
+            <form id="studentForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="studentId">Student ID <span class="required">*</span></label>
+                        <input 
+                            type="text" 
+                            id="studentId" 
+                            placeholder="e.g., S001" 
+                            required
+                            pattern="^S\d{3}$"
+                            title="Format: S001, S002, etc."
+                        >
+                        <small class="form-hint">Format: S followed by 3 digits</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentName">Student Name <span class="required">*</span></label>
+                        <input 
+                            type="text" 
+                            id="studentName" 
+                            placeholder="Enter full name" 
+                            required
+                        >
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="department">Department <span class="required">*</span></label>
+                        <select id="department" required>
+                            <option value="">Select Department</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Information Technology">Information Technology</option>
+                            <option value="Software Engineering">Software Engineering</option>
+                            <option value="Data Science">Data Science</option>
+                            <option value="Cybersecurity">Cybersecurity</option>
+                            <option value="Artificial Intelligence">Artificial Intelligence</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="marks">Marks (0-100) <span class="required">*</span></label>
+                        <input 
+                            type="number" 
+                            id="marks" 
+                            min="0" 
+                            max="100" 
+                            placeholder="Enter marks" 
+                            required
+                        >
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <span class="btn-icon">+</span>
+                        <span id="submitText">Add Student</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancelBtn" onclick="cancelEdit()">
+                        <span class="btn-icon">×</span>
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-info" id="loadBtn" onclick="loadStudents()">
+                        <span class="btn-icon">↻</span>
+                        Reload Data
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="spinner"></div>
+            <p>Processing request...</p>
+        </div>
+
+        <!-- Students Table -->
+        <div class="table-section">
+            <div class="table-header">
+                <h2>Student Records</h2>
+                <div class="table-info">
+                    <span id="totalCount" class="badge">0 Students</span>
+                    <span id="httpStatus" class="http-status"></span>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="studentsTable">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Marks</th>
+                            <th>Grade</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTableBody">
+                        <tr>
+                            <td colspan="7" class="empty-state">
+                                <div class="empty-content">
+                                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="9" cy="7" r="4"></circle>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    </svg>
+                                    <p>No students found. Click "Reload Data" to load records.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- HTTP Status Legend -->
+        <div class="status-legend">
+            <h3>HTTP Status Codes:</h3>
+            <div class="legend-items">
+                <span class="legend-item">
+                    <span class="status-code success">200</span> OK - Request successful
+                </span>
+                <span class="legend-item">
+                    <span class="status-code created">201</span> Created - Resource created
+                </span>
+                <span class="legend-item">
+                    <span class="status-code not-found">404</span> Not Found - Resource not found
+                </span>
+                <span class="legend-item">
+                    <span class="status-code error">500</span> Error - Server error
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>

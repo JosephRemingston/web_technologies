@@ -1,0 +1,28 @@
+{
+    "students": [
+        {
+            "studentId": "S001",
+            "name": "John Doe",
+            "department": "Computer Science",
+            "marks": 85
+        },
+        {
+            "studentId": "S002",
+            "name": "Jane Smith",
+            "department": "Information Technology",
+            "marks": 92
+        },
+        {
+            "studentId": "S003",
+            "name": "Michael Johnson",
+            "department": "Software Engineering",
+            "marks": 78
+        },
+        {
+            "studentId": "S004",
+            "name": "Emily Davis",
+            "department": "Data Science",
+            "marks": 88
+        }
+    ]
+}
