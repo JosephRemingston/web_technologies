@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Management System</h1>
+        
+        <!-- Message Display Area -->
+        <div id="messageBox" class="message-box"></div>
+        
+        <!-- Employee Form -->
+        <div class="form-container">
+            <h2 id="formTitle">Add New Employee</h2>
+            <form id="employeeForm">
+                <input type="hidden" id="employeeId">
+                
+                <div class="form-group">
+                    <label for="employeeName">Name:</label>
+                    <input type="text" id="employeeName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="employeeDepartment">Department:</label>
+                    <select id="employeeDepartment" required>
+                        <option value="">Select Department</option>
+                        <option value="IT">IT</option>
+                        <option value="HR">HR</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Operations">Operations</option>
+                        <option value="Sales">Sales</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="employeeSalary">Salary:</label>
+                    <input type="number" id="employeeSalary" min="0" step="1000" required>
+                </div>
+                
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Add Employee</button>
+                    <button type="button" class="btn btn-secondary" id="cancelBtn" style="display: none;">Cancel</button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Employee Table -->
+        <div class="table-container">
+            <div class="table-header">
+                <h2>Employee Records</h2>
+                <button class="btn btn-primary" id="refreshBtn">Refresh Data</button>
+            </div>
+            
+            <div id="loadingIndicator" class="loading">Loading employees...</div>
+            
+            <table id="employeeTable">
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Salary</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="employeeTableBody">
+                    <!-- Employee rows will be inserted here dynamically -->
+                </tbody>
+            </table>
+            
+            <div id="emptyMessage" class="empty-message" style="display: none;">
+                No employees found. Add a new employee to get started!
+            </div>
+        </div>
+    </div>
+    
+    <script src="index.js"></script>
+</body>
+</html>
