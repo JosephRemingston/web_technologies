@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 1: Real-Time Username Availability Checker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 440px;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+            color: white;
+            padding: 28px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .form-container {
+            padding: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #0d9488;
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+        }
+
+        input.username-taken {
+            border-color: #dc2626;
+            background-color: #fef2f2;
+        }
+
+        input.username-available {
+            border-color: #059669;
+            background-color: #f0fdf4;
+        }
+
+        .username-feedback {
+            margin-top: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            min-height: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .username-feedback.taken {
+            color: #dc2626;
+        }
+
+        .username-feedback.available {
+            color: #059669;
+        }
+
+        .username-feedback.loading {
+            color: #6b7280;
+        }
+
+        .username-feedback .icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #e5e7eb;
+            border-top-color: #0d9488;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 8px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(13, 148, 136, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn.loading {
+            pointer-events: none;
+            color: transparent;
+            position: relative;
+        }
+
+        .submit-btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            top: 50%;
+            left: 50%;
+            margin: -11px 0 0 -11px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        .success-message {
+            display: none;
+            padding: 20px 28px;
+            margin: 0 28px 28px;
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 8px;
+            color: #065f46;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .success-message.visible {
+            display: block;
+        }
+
+        .success-message strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 1.05rem;
+        }
+
+        .note {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .note a {
+            color: #0d9488;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Create Account</h1>
+            <p>Username is checked in real time</p>
+        </div>
+
+        <form id="registrationForm" class="form-container" novalidate>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Choose a username"
+                    autocomplete="username"
+                    required
+                    minlength="2"
+                >
+                <div id="usernameFeedback" class="username-feedback" aria-live="polite"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Create a password" required minlength="6">
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                Register
+            </button>
+        </form>
+
+        <div id="successMessage" class="success-message" role="status" aria-live="polite">
+            <strong>Registration successful!</strong>
+            Your account has been created. You can now sign in.
+        </div>
+
+        <p class="note">
+          
+        </p>
+    </div>
+
+    <script>
+        (function () {
+            const form = document.getElementById('registrationForm');
+            const usernameInput = document.getElementById('username');
+            const usernameFeedback = document.getElementById('usernameFeedback');
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+
+            let checkTimeout = null;
+            let lastCheckedValue = '';
+            let usernameAvailable = null; // null = not checked, true = available, false = taken
+            let isChecking = false;
+
+            function setFeedback(message, state) {
+                usernameFeedback.textContent = '';
+                usernameFeedback.className = 'username-feedback ' + (state || '');
+                usernameFeedback.removeAttribute('class');
+                usernameFeedback.className = 'username-feedback' + (state ? ' ' + state : '');
+
+                if (state === 'loading') {
+                    const spinner = document.createElement('div');
+                    spinner.className = 'spinner';
+                    spinner.setAttribute('aria-hidden', 'true');
+                    usernameFeedback.appendChild(spinner);
+                    const text = document.createElement('span');
+                    text.textContent = message;
+                    usernameFeedback.appendChild(text);
+                } else {
+                    usernameFeedback.textContent = message;
+                }
+            }
+
+            function setInputState(taken) {
+                usernameInput.classList.remove('username-taken', 'username-available');
+                if (taken === true) usernameInput.classList.add('username-taken');
+                if (taken === false) usernameInput.classList.add('username-available');
+            }
+
+            function updateSubmitButton() {
+                // Button stays enabled so user can always click to see success (demo)
+            }
+
+            function checkUsername(value) {
+                const trimmed = value.trim().toLowerCase();
+                if (trimmed.length < 2) {
+                    usernameAvailable = null;
+                    setFeedback('');
+                    setInputState(null);
+                    updateSubmitButton();
+                    return;
+                }
+
+                if (trimmed === lastCheckedValue && usernameAvailable !== null && !isChecking) {
+                    updateSubmitButton();
+                    return;
+                }
+
+                lastCheckedValue = trimmed;
+                usernameAvailable = null;
+                isChecking = true;
+                setFeedback('Checking availability…', 'loading');
+                setInputState(null);
+                submitBtn.disabled = true;
+
+                fetch('usernames.json')
+                    .then(function (res) {
+                        if (!res.ok) throw new Error('Network error');
+                        return res.json();
+                    })
+                    .then(function (data) {
+                        const taken = (data.taken || []).some(function (u) {
+                            return u.toLowerCase() === trimmed;
+                        });
+                        usernameAvailable = !taken;
+                        setInputState(taken);
+                        if (taken) {
+                            setFeedback('Username already taken.', 'taken');
+                        } else {
+                            setFeedback('Username available.', 'available');
+                        }
+                    })
+                    .catch(function () {
+                        usernameAvailable = null;
+                        setFeedback('Could not check username. Try again.', 'taken');
+                        setInputState(true);
+                    })
+                    .finally(function () {
+                        isChecking = false;
+                        submitBtn.disabled = false;
+                    });
+            }
+
+            function debouncedCheck() {
+                if (checkTimeout) clearTimeout(checkTimeout);
+                checkTimeout = setTimeout(function () {
+                    checkUsername(usernameInput.value);
+                    checkTimeout = null;
+                }, 400);
+            }
+
+            usernameInput.addEventListener('input', function () {
+                if (usernameInput.value.trim().length < 2) {
+                    lastCheckedValue = '';
+                    usernameAvailable = null;
+                    setFeedback('');
+                    setInputState(null);
+                }
+                debouncedCheck();
+            });
+
+            usernameInput.addEventListener('blur', function () {
+                if (usernameInput.value.trim().length >= 2) {
+                    checkUsername(usernameInput.value);
+                }
+            });
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                submitBtn.classList.add('loading');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Registering…';
+
+                setTimeout(function () {
+                    form.style.display = 'none';
+                    submitBtn.classList.remove('loading');
+                    submitBtn.textContent = 'Register';
+                    submitBtn.disabled = false;
+                    successMessage.classList.add('visible');
+                }, 1200);
+            });
+
+            updateSubmitButton();
+        })();
+    </script>
+</body>
+</html>
