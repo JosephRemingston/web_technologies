@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+    <book id="1">
+        <title>To Kill a Mockingbird</title>
+        <author>Harper Lee</author>
+        <status>Available</status>
+    </book>
+    <book id="2">
+        <title>1984</title>
+        <author>George Orwell</author>
+        <status>Checked Out</status>
+    </book>
+    <book id="3">
+        <title>The Great Gatsby</title>
+        <author>F. Scott Fitzgerald</author>
+        <status>Available</status>
+    </book>
+    <book id="4">
+        <title>Pride and Prejudice</title>
+        <author>Jane Austen</author>
+        <status>Available</status>
+    </book>
+    <book id="5">
+        <title>The Catcher in the Rye</title>
+        <author>J.D. Salinger</author>
+        <status>Checked Out</status>
+    </book>
+    <book id="6">
+        <title>The Hobbit</title>
+        <author>J.R.R. Tolkien</author>
+        <status>Available</status>
+    </book>
+    <book id="7">
+        <title>Harry Potter and the Sorcerer's Stone</title>
+        <author>J.K. Rowling</author>
+        <status>Available</status>
+    </book>
+    <book id="8">
+        <title>The Lord of the Rings</title>
+        <author>J.R.R. Tolkien</author>
+        <status>Checked Out</status>
+    </book>
+</library>

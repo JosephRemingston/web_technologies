@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Book Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Library Book Tracker</h1>
+            <p class="subtitle">Manage your library collection with ease</p>
+        </header>
+        
+        <!-- Notification Area -->
+        <div id="notification" class="notification"></div>
+        
+        <!-- Statistics Dashboard -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number" id="totalBooks">0</div>
+                <div class="stat-label">Total Books</div>
+            </div>
+            <div class="stat-card available">
+                <div class="stat-number" id="availableBooks">0</div>
+                <div class="stat-label">Available</div>
+            </div>
+            <div class="stat-card checked-out">
+                <div class="stat-number" id="checkedOutBooks">0</div>
+                <div class="stat-label">Checked Out</div>
+            </div>
+        </div>
+        
+        <!-- Add/Edit Book Form -->
+        <div class="form-section">
+            <h2 id="formTitle">Add New Book</h2>
+            <form id="bookForm">
+                <input type="hidden" id="bookId">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bookTitle">
+                            <span class="required">*</span>Book Title:
+                        </label>
+                        <input 
+                            type="text" 
+                            id="bookTitle" 
+                            placeholder="Enter book title"
+                            required
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bookAuthor">
+                            <span class="required">*</span>Author:
+                        </label>
+                        <input 
+                            type="text" 
+                            id="bookAuthor" 
+                            placeholder="Enter author name"
+                            required
+                        >
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bookStatus">
+                            <span class="required">*</span>Availability Status:
+                        </label>
+                        <select id="bookStatus" required>
+                            <option value="">Select Status</option>
+                            <option value="Available">Available</option>
+                            <option value="Checked Out">Checked Out</option>
+                            <option value="Reserved">Reserved</option>
+                            <option value="Under Repair">Under Repair</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <!-- Spacer for alignment -->
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <span class="btn-icon">➕</span> Add Book
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancelBtn" style="display: none;">
+                        <span class="btn-icon">✕</span> Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Book List Section -->
+        <div class="book-list-section">
+            <div class="section-header">
+                <h2>Book Collection</h2>
+                <div class="header-actions">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search by title or author..."
+                        class="search-input"
+                    >
+                    <select id="filterStatus" class="filter-select">
+                        <option value="">All Books</option>
+                        <option value="Available">Available Only</option>
+                        <option value="Checked Out">Checked Out Only</option>
+                        <option value="Reserved">Reserved Only</option>
+                        <option value="Under Repair">Under Repair Only</option>
+                    </select>
+                    <button class="btn btn-refresh" id="refreshBtn">
+                        <span class="btn-icon">🔄</span> Refresh
+                    </button>
+                </div>
+            </div>
+            
+            <div id="loadingIndicator" class="loading">
+                <div class="spinner"></div>
+                <p>Loading books from library...</p>
+            </div>
+            
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-icon">📚</div>
+                <h3>No Books Found</h3>
+                <p>Add your first book to get started!</p>
+            </div>
+            
+            <div id="bookTableContainer" style="display: none;">
+                <table id="bookTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookTableBody">
+                        <!-- Book rows will be inserted here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="index.js"></script>
+</body>
+</html>
