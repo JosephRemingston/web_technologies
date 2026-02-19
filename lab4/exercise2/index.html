@@ -3,82 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library Book Tracker - XML DOM</title>
+    <title>Product Search System - AJAX</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📚 Library Book Tracker</h1>
-            <p>Manage your library collection with XML DOM</p>
+            <h1>🔍 Product Search System</h1>
+            <p>Live AJAX-Based Search with Debouncing</p>
         </header>
 
-        <!-- Load Books Button -->
-        <div class="action-section">
-            <button id="loadBooksBtn" class="btn btn-primary">Load Books from XML</button>
-            <span id="loadingIndicator" class="loading hidden">Loading...</span>
-        </div>
-
-        <!-- Add New Book Form -->
-        <div class="form-section">
-            <h2>Add New Book</h2>
-            <form id="addBookForm">
-                <div class="form-group">
-                    <label for="bookTitle">Book Title:</label>
-                    <input type="text" id="bookTitle" required>
-                </div>
-                <div class="form-group">
-                    <label for="bookAuthor">Author:</label>
-                    <input type="text" id="bookAuthor" required>
-                </div>
-                <div class="form-group">
-                    <label for="bookStatus">Status:</label>
-                    <select id="bookStatus" required>
-                        <option value="available">Available</option>
-                        <option value="borrowed">Borrowed</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-success">Add Book</button>
-            </form>
-        </div>
-
-        <!-- Statistics -->
-        <div id="statistics" class="statistics hidden">
-            <div class="stat-card">
-                <h3>Total Books</h3>
-                <span id="totalBooks" class="stat-value">0</span>
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-box">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search for products by name, category, or price..."
+                    autocomplete="off"
+                >
+                <button id="clearBtn" class="clear-btn hidden">×</button>
             </div>
-            <div class="stat-card">
-                <h3>Available</h3>
-                <span id="availableBooks" class="stat-value">0</span>
-            </div>
-            <div class="stat-card">
-                <h3>Borrowed</h3>
-                <span id="borrowedBooks" class="stat-value">0</span>
+            <div class="search-info">
+                <span id="searchStatus" class="search-status"></span>
+                <span id="loadingIndicator" class="loading-spinner hidden">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                    </svg>
+                </span>
             </div>
         </div>
 
-        <!-- Books Table -->
-        <div id="booksTableContainer" class="table-container hidden">
-            <h2>Book Collection</h2>
-            <table id="booksTable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="booksTableBody">
-                    <!-- Books will be populated here -->
-                </tbody>
-            </table>
+        <!-- Filter Options -->
+        <div class="filter-section">
+            <h3>Filter by Category:</h3>
+            <div class="filter-buttons" id="categoryFilters">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="Electronics">Electronics</button>
+                <button class="filter-btn" data-category="Sports">Sports</button>
+                <button class="filter-btn" data-category="Accessories">Accessories</button>
+                <button class="filter-btn" data-category="Appliances">Appliances</button>
+                <button class="filter-btn" data-category="Home">Home</button>
+            </div>
         </div>
 
-        <!-- Messages -->
-        <div id="message" class="message hidden"></div>
+        <!-- Results Count -->
+        <div id="resultsCount" class="results-count hidden">
+            Found <strong id="count">0</strong> product(s)
+        </div>
+
+        <!-- Products Grid -->
+        <div id="productsContainer" class="products-container">
+            <div class="welcome-message">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <h2>Start searching for products</h2>
+                <p>Type in the search box above to find products by name, category, or price range</p>
+            </div>
+        </div>
+
+        <!-- No Results Message -->
+        <div id="noResults" class="no-results hidden">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+            <h2>No results found</h2>
+            <p>Try searching with different keywords or adjust your filters</p>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="error-message hidden">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <h3>Error Loading Products</h3>
+            <p id="errorText">Unable to fetch product data. Please try again.</p>
+            <button id="retryBtn" class="btn btn-primary">Retry</button>
+        </div>
     </div>
 
     <script src="index.js"></script>

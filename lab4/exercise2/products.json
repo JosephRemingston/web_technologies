@@ -1,0 +1,124 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "name": "Wireless Bluetooth Headphones",
+            "price": 79.99,
+            "category": "Electronics"
+        },
+        {
+            "id": 2,
+            "name": "Leather Wallet",
+            "price": 34.99,
+            "category": "Accessories"
+        },
+        {
+            "id": 3,
+            "name": "Smart Watch Pro",
+            "price": 299.99,
+            "category": "Electronics"
+        },
+        {
+            "id": 4,
+            "name": "Running Shoes",
+            "price": 89.99,
+            "category": "Sports"
+        },
+        {
+            "id": 5,
+            "name": "Coffee Maker",
+            "price": 129.99,
+            "category": "Appliances"
+        },
+        {
+            "id": 6,
+            "name": "Yoga Mat",
+            "price": 24.99,
+            "category": "Sports"
+        },
+        {
+            "id": 7,
+            "name": "Laptop Stand",
+            "price": 45.99,
+            "category": "Accessories"
+        },
+        {
+            "id": 8,
+            "name": "Mechanical Keyboard",
+            "price": 159.99,
+            "category": "Electronics"
+        },
+        {
+            "id": 9,
+            "name": "Water Bottle",
+            "price": 19.99,
+            "category": "Sports"
+        },
+        {
+            "id": 10,
+            "name": "Backpack",
+            "price": 54.99,
+            "category": "Accessories"
+        },
+        {
+            "id": 11,
+            "name": "Desk Lamp",
+            "price": 39.99,
+            "category": "Home"
+        },
+        {
+            "id": 12,
+            "name": "Wireless Mouse",
+            "price": 29.99,
+            "category": "Electronics"
+        },
+        {
+            "id": 13,
+            "name": "Tennis Racket",
+            "price": 149.99,
+            "category": "Sports"
+        },
+        {
+            "id": 14,
+            "name": "Blender",
+            "price": 89.99,
+            "category": "Appliances"
+        },
+        {
+            "id": 15,
+            "name": "Sunglasses",
+            "price": 119.99,
+            "category": "Accessories"
+        },
+        {
+            "id": 16,
+            "name": "USB-C Cable",
+            "price": 12.99,
+            "category": "Electronics"
+        },
+        {
+            "id": 17,
+            "name": "Dumbbell Set",
+            "price": 79.99,
+            "category": "Sports"
+        },
+        {
+            "id": 18,
+            "name": "Air Fryer",
+            "price": 129.99,
+            "category": "Appliances"
+        },
+        {
+            "id": 19,
+            "name": "Phone Case",
+            "price": 14.99,
+            "category": "Accessories"
+        },
+        {
+            "id": 20,
+            "name": "Portable Speaker",
+            "price": 69.99,
+            "category": "Electronics"
+        }
+    ]
+}
